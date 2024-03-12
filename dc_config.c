@@ -138,10 +138,10 @@ EXPORT_DEF void dc_sconfig_fill(struct ast_config * cfg, const char * cat, struc
 		else if (!strcasecmp (v->name, "netmode"))
 		{
 			errno = 0;
-			config->netmode = (int) strtol (v->value, (char**) NULL, 10);		/* netmode is set to 2 (All modes) if invalid */
+			config->netmode = (int) strtol (v->value, (char**) NULL, 10);		/* netmode is set to 19 (WCDMA/GSM) if invalid */
 			if (config->netmode == -1 && errno == EINVAL)
 			{
-				config->netmode = 2;
+				config->netmode = 19;
 			}
 		}
 		else if (!strcasecmp (v->name, "callingpres"))
