@@ -143,7 +143,7 @@ EXPORT_DEF int at_enqueue_initialization(struct cpvt *cpvt, at_cmd_t from_comman
 		ATQ_CMD_DECLARE_ST(CMD_AT, cmd_at),
 		ATQ_CMD_DECLARE_ST(CMD_AT_Z, cmd2),		/* optional,  reload configuration */
 		ATQ_CMD_DECLARE_ST(CMD_AT_E, cmd3),		/* disable echo */
-		ATQ_CMD_DECLARE_DYN(CMD_AT_U2DIAG),		/* optional, Enable or disable some devices */
+		ATQ_CMD_DECLARE_DYN(CMD_AT_CNMP),		/* optional, set network mode */
 		ATQ_CMD_DECLARE_ST(CMD_AT_CGMI, cmd5),		/* Getting manufacturer info */
 
 		ATQ_CMD_DECLARE_ST(CMD_AT_CGMM, cmd7),		/* Get Product name */
@@ -192,14 +192,14 @@ EXPORT_DEF int at_enqueue_initialization(struct cpvt *cpvt, at_cmd_t from_comman
 
 		if(st_cmds[in].cmd == CMD_AT_Z && !CONF_SHARED(pvt, resetquectel))
 			continue;
-		if(st_cmds[in].cmd == CMD_AT_U2DIAG && CONF_SHARED(pvt, u2diag) == -1)
+		if(st_cmds[in].cmd == CMD_AT_CNMP && CONF_SHARED(pvt, netmode) == -1)
 			continue;
 
 		memcpy(&cmds[out], &st_cmds[in], sizeof(st_cmds[in]));
 
-		if(cmds[out].cmd == CMD_AT_U2DIAG)
+		if(cmds[out].cmd == CMD_AT_CNMP)
 		{
-			err = at_fill_generic_cmd(&cmds[out], "AT^U2DIAG=%d\r", CONF_SHARED(pvt, u2diag));
+			err = at_fill_generic_cmd(&cmds[out], "AT+CNMP=%d\r", CONF_SHARED(pvt, netmode));
 			if(err)
 				goto failure;
 			ptmp1 = cmds[out].data;

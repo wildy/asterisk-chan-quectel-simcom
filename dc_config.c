@@ -91,7 +91,7 @@ EXPORT_DEF void dc_sconfig_fill_defaults(struct dc_sconfig * config)
 	ast_copy_string (config->exten, "", sizeof (config->exten));
 	ast_copy_string (config->language, DEFAULT_LANGUAGE, sizeof (config->language));
 
-	config->u2diag			= -1;
+	config->netmode			= 19;
 	config->resetquectel		=  1;
 	config->callingpres		= -1;
 	config->initstate		= DEV_STATE_STARTED;
@@ -135,13 +135,13 @@ EXPORT_DEF void dc_sconfig_fill(struct ast_config * cfg, const char * cat, struc
 		{
 			config->txgain = (int) strtol (v->value, (char**) NULL, 10);		/* txgain is set to 0 if invalid */
 		}
-		else if (!strcasecmp (v->name, "u2diag"))
+		else if (!strcasecmp (v->name, "netmode"))
 		{
 			errno = 0;
-			config->u2diag = (int) strtol (v->value, (char**) NULL, 10);		/* u2diag is set to -1 if invalid */
-			if (config->u2diag == 0 && errno == EINVAL)
+			config->netmode = (int) strtol (v->value, (char**) NULL, 10);		/* netmode is set to 2 (All modes) if invalid */
+			if (config->netmode == -1 && errno == EINVAL)
 			{
-				config->u2diag = -1;
+				config->netmode = 2;
 			}
 		}
 		else if (!strcasecmp (v->name, "callingpres"))
