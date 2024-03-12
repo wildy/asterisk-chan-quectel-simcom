@@ -138,12 +138,13 @@ EXPORT_DEF int at_enqueue_initialization(struct cpvt *cpvt, at_cmd_t from_comman
 	static const char cmd22[] = "AT+CPMS=\"SM\",\"SM\",\"SM\"\r";
 	static const char cmd23[] = "AT+CNMI=2,1,0,2,0\r";
 	static const char cmd24[] = "AT+CSQ\r";
+	static const char cmd_cnmp[] = "AT+CNMP=19\r";
 
 	static const at_queue_cmd_t st_cmds[] = {
 		ATQ_CMD_DECLARE_ST(CMD_AT, cmd_at),
 		ATQ_CMD_DECLARE_ST(CMD_AT_Z, cmd2),		/* optional,  reload configuration */
 		ATQ_CMD_DECLARE_ST(CMD_AT_E, cmd3),		/* disable echo */
-		ATQ_CMD_DECLARE_DYN(CMD_AT_CNMP),		/* optional, set network mode */
+		// ATQ_CMD_DECLARE_DYN(CMD_AT_CNMP),		/* optional, set network mode */
 		ATQ_CMD_DECLARE_ST(CMD_AT_CGMI, cmd5),		/* Getting manufacturer info */
 
 		ATQ_CMD_DECLARE_ST(CMD_AT_CGMM, cmd7),		/* Get Product name */
@@ -162,6 +163,7 @@ EXPORT_DEF int at_enqueue_initialization(struct cpvt *cpvt, at_cmd_t from_comman
 		ATQ_CMD_DECLARE_STI(CMD_AT_CVOICE2, cmd17a),
 		ATQ_CMD_DECLARE_ST(CMD_AT_CSCA, cmd6),		/* Get SMS Service center address */
 //		ATQ_CMD_DECLARE_ST(CMD_AT_CLIP, cmd18),		/* disable  Calling line identification presentation in unsolicited response +CLIP: <number>,<type>[,<subaddr>,<satype>[,[<alpha>][,<CLI validitity>]] */
+		ATQ_CMD_DECLARE_ST(CMD_AT_CNMP, cmd_cnmp),
 		ATQ_CMD_DECLARE_ST(CMD_AT_CSSN, cmd19),		/* activate Supplementary Service Notification with CSSI and CSSU */
 		ATQ_CMD_DECLARE_ST(CMD_AT_CMGF, cmd20),		/* Set Message Format */
 
